@@ -6,22 +6,18 @@ const copyTextContainer = document.querySelector('#copyTextContainer');
 const table = document.createElement('table');
 const rgbResult = document.querySelector('#rgbResult');
 
-window.addEventListener('load', start);
-
-function start() {
+window.addEventListener('load', () => {
   defineStyleContainer(mainContainer.style);
   defineStyleCopyTextContainer(copyTextContainer.style);
   defineStyleRGBResult(rgbResult.style);
   changeRBG();
   render();
-}
+});
 
 function render() {
   mainContainer.appendChild(table);
 
-  for (let i = 0; i < colors.length; i++) {
-    let color = colors[i];
-
+  colors.forEach( color =>{
     let tdName = createTdName(color);
     let range = createRange(color);
 
@@ -39,8 +35,8 @@ function render() {
     tr.appendChild(tdDisplay);
 
     table.appendChild(tr);
-  }
-
+  });
+  
   let buttonCopyRBG = createCopyButton();
   copyTextContainer.appendChild(buttonCopyRBG);
 }
@@ -48,7 +44,7 @@ function render() {
 function createTdName(color) {
   let tdName = document.createElement('td');
   tdName.textContent = color;
-  tdName.style = defineStyleTdName(tdName.style, color);
+  defineStyleTdName(tdName.style, color);
   return tdName;
 }
 
@@ -84,7 +80,7 @@ function createCopyButton(){
 function handlerRangeAndColor(event) {
   let { value, name } = event.target;
   let display = document.querySelector(`#display${name}`);
-  let indexName = colors.findIndex((color) => color === name);
+  let indexName = colors.findIndex(color => color === name);
 
   display.value = value;
   rgbValues[indexName] = value;
@@ -92,14 +88,12 @@ function handlerRangeAndColor(event) {
 }
 
 function changeRBG(values = [0, 0, 0]) {
-  const { style } = rgbResult;
-  style.backgroundColor =
-    'rgb(' + values[0] + ',' + values[1] + ',' + values[2] + ')';
+  rgbResult.style.backgroundColor = 'rgb(' + values[0] + ',' + values[1] + ',' + values[2] + ')';
 }
 
-function copyRGB(event) {
+function copyRGB() {
   let rbgTemp = document.createElement('textarea');
-  rbgTemp.value = 'rgb(' + rgbValues[0] + ',' + rgbValues[1] + ',' + rgbValues[2] + ');';
+  rbgTemp.value = rgbResult.style.backgroundColor;
   document.body.appendChild(rbgTemp);
   rbgTemp.select();
   document.execCommand('copy');
