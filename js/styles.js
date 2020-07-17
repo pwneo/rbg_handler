@@ -2,7 +2,6 @@ window.addEventListener('load', start);
 
 function start(){
   defineStyleBody();
-  defineStyleH1();
 }
 
 function defineStyleContainer(style) {
@@ -28,7 +27,6 @@ function defineStyleRGBResult(style){
   style.borderRadius = '50%';
 }
 
-
 function defineStyleInputDisplay(style){
   style.border = 0;
   style.width = '25px';
@@ -39,14 +37,12 @@ function defineStyleInputDisplay(style){
 function defineStyleCopyButton(style){
   style.fontFamily = 'Arial';
   style.fontWeight = 'bold';
-  style.marginTop = '4%';
   style.boxShadow = '2px 3px 10px';
   style.paddingLeft ='17px';
   style.paddingRight = '17px';
   style.paddingBottom = '10px';
-  style.paddingTop = '12px';
+  style.paddingTop = '12px';  
 }
-
 
 function defineStyleTdName(style, color){
   style.fontFamily = 'Arial';
@@ -58,7 +54,7 @@ function defineStyleCopyTextContainer(style){
   style.width = '70px';
   style.marginLeft = 'auto';
   style.marginRight = 'auto';
-  style.marginTop = '4%';
+  style.marginTop = '8%';
   style.marginBottom = '4%'; 
 }
 
