@@ -1,19 +1,23 @@
 const colors = ['Red', 'Green', 'Blue'];
+const rgbValues = [0, 0, 0];
 
-const container = document.querySelector('#container');
+const mainContainer = document.querySelector('#container');
+const copyTextContainer = document.querySelector('#copyTextContainer');
 const table = document.createElement('table');
 const rgbResult = document.querySelector('#rgbResult');
-const rgbValues = [0, 0, 0];
 
 window.addEventListener('load', start);
 
 function start() {
-  render();
+  defineStyleContainer(mainContainer.style);
+  defineStyleCopyTextContainer(copyTextContainer.style);
+  defineStyleRGBResult(rgbResult.style);
   changeRBG();
+  render();
 }
 
 function render() {
-  container.appendChild(table);
+  mainContainer.appendChild(table);
 
   for (let i = 0; i < colors.length; i++) {
     let color = colors[i];
@@ -36,14 +40,15 @@ function render() {
 
     table.appendChild(tr);
   }
+
+  let buttonCopyRBG = createCopyButton();
+  copyTextContainer.appendChild(buttonCopyRBG);
 }
 
 function createTdName(color) {
   let tdName = document.createElement('td');
   tdName.textContent = color;
-  tdName.style.fontFamily = 'Arial';
-  tdName.style.fontWeight = 'Bold';
-  tdName.style.color = color;
+  tdName.style = defineStyleTdName(tdName.style, color);
   return tdName;
 }
 
@@ -54,7 +59,7 @@ function createRange(color) {
   range.setAttribute('max', '255');
   range.setAttribute('name', color);
   range.value = 0;
-  range.addEventListener('input', handlerRange);
+  range.addEventListener('input', handlerRangeAndColor);
   return range;
 }
 
@@ -64,14 +69,19 @@ function createInputDisplay(color) {
   inputDisplay.setAttribute('disabled', true);
   inputDisplay.setAttribute('id', `display${color}`);
   inputDisplay.value = 0;
-  inputDisplay.style.border = 0;
-  inputDisplay.style.width = '25px';
-  inputDisplay.style.borderColor = 'transparent';
-  inputDisplay.style.backgroundColor = 'rgb(221, 221, 221)';
+  defineStyleInputDisplay(inputDisplay.style);
   return inputDisplay;
 }
 
-function handlerRange(event) {
+function createCopyButton(){
+  let button = document.createElement('button');
+  button.addEventListener('click', copyRGB);
+  button.textContent = 'Copiar';
+  defineStyleCopyButton(button.style);
+  return button;
+}
+
+function handlerRangeAndColor(event) {
   let { value, name } = event.target;
   let display = document.querySelector(`#display${name}`);
   let indexName = colors.findIndex((color) => color === name);
@@ -85,4 +95,14 @@ function changeRBG(values = [0, 0, 0]) {
   const { style } = rgbResult;
   style.backgroundColor =
     'rgb(' + values[0] + ',' + values[1] + ',' + values[2] + ')';
+}
+
+function copyRGB(event) {
+  let rbgTemp = document.createElement('textarea');
+  rbgTemp.value = 'rgb(' + rgbValues[0] + ',' + rgbValues[1] + ',' + rgbValues[2] + ');';
+  document.body.appendChild(rbgTemp);
+  rbgTemp.select();
+  document.execCommand('copy');
+  document.body.removeChild(rbgTemp);
+  alert('Copiado!')
 }
