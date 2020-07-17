@@ -1,0 +1,50 @@
+body{
+  
+  margin-top: 6%;
+  height: 100%;
+  width: 100%;
+}
+
+h1{
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+table{
+  margin-left: auto;
+  margin-right: auto;
+  border-color:transparent;
+  border: 0px solid;
+}
+
+td{
+  border-color: transparent;
+}
+
+tr{
+  border-color: transparent;
+}
+
+#container{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  width: 35%;
+  background-color: rgb(221, 221, 221);
+  box-shadow: 5px 8px 20px;
+  border-radius: 10px;
+  padding-top: 1%;
+  padding-bottom: 2%;
+}
+
+#rgbResult{
+  width: 200px;
+  height: 200px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 5px 8px 20px;
+  border-radius: 50%;
+}
+
